@@ -92,11 +92,3 @@ resource "oci_core_route_table" "private" {
     network_entity_id        = oci_core_service_gateway.sgw[0].id
   }
 }
-
-#resource "oci_resourcemanager_private_endpoint" "rms_private_endpoint" {
-#  count                     = 1
-#  compartment_id            = var.compartment_ocid
-#  display_name              = var.rm_pend_display_name
-#  vcn_id                    = var.exist_vcn ? var.vcn_ocid : oci_core_virtual_network.vcn[0].id
-#  subnet_id                 = var.exist_vcn ? var.storage_ocid : oci_core_subnet.storage[0].id
-#}
