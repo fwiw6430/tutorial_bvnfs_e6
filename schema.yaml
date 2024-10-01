@@ -1,0 +1,89 @@
+---
+title: "Block volume NFS server Terraform scripts"
+description: "Terraform scripts deploying block volume NFS server on OCI ver. 1.0"
+schemaVersion: 1.0.0
+version: "2024093001"
+informationalText: "Terraform scripts deploying block volume NFS server on OCI ver. 1.0"
+
+# Code history
+# 1.0: Sep 30th 2024: New release
+
+#source:
+#  type: marketplace
+#  reference: 67628143
+locale: "en"
+
+variableGroups:
+  - title: "General options"
+    variables:
+      - ${compartment_ocid}
+      - ${ad}
+      - ${ssh_key}
+      - ${exist_vcn}
+      - ${vcn_ocid}
+      - ${storage_ocid}
+      - ${nfs_ocid}
+  - title: "Block volume options"
+    variables:
+      - ${bv_total_size}
+  - title: "Hidden"
+    variables:
+      - ${vcn_params}
+      - ${igw_display_name}
+      - ${ngw_display_name}
+      - ${subnet_params}
+      - ${sl_params}
+      - ${rt_params}
+      - ${user_name}
+      - ${inst_params_nfs}
+      - ${bv_params}
+      - ${rm_pend_display_name}
+    visible: false
+
+variables:
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment"
+    description: "Compartment where OCI resources reside"
+    default: ${compartment_ocid}
+    required: true
+  ad:
+    type: oci:identity:availabilitydomain:name
+    title: "Availability Domain"
+    description: "Availability Domain where OCI resources reside"
+    visible: complexExpression
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    required: true
+  ssh_key:
+    type: oci:core:ssh:publickey
+    title: "SSH public key"
+    description: "SSH public key to login to NFS server"
+    required: true
+  exist_vcn:
+    type: boolean
+    title: "Use existing VCN"
+    description: "Deploy NFS server on existing VCN"
+    default: false
+  vcn_ocid:
+    title: "VCN OCID"
+    description: "Pre-exsisting VCN OCID"
+    visible: ${exist_vcn}
+    required: true 
+  storage_ocid:
+    title: "Storage subnet OCID"
+    description: "Pre-exsisting subnet OCID to connect NFS server with block volume"
+    visible: ${exist_vcn}
+    required: true 
+  nfs_ocid:
+    title: "NFS subnet OCID"
+    description: "Pre-exsisting subnet OCID to connect NFS server with NFS clients"
+    visible: ${exist_vcn}
+    required: true 
+  bv_total_size:
+    type: integer
+    title: "Block volume total size"
+    description: "Block volume total size in GB (Minimum size = 15,000GB"
+    required: true
+    minimum: 15000
+    default: 15000
