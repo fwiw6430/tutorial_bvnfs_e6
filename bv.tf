@@ -3,7 +3,7 @@ resource "oci_core_volume" "bv" {
   availability_domain               = var.ad
   compartment_id                    = var.compartment_ocid
   display_name                      = "bv${count.index}"
-  size_in_gbs                       = var.bv_total_size / var.bv_params.vol_count
+  size_in_gbs                       = ceil(var.bv_total_size / var.bv_params.vol_count)
   vpus_per_gb                       = var.bv_params.vpus_per_gb
 }
 
