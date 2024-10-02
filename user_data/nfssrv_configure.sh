@@ -23,15 +23,12 @@
 #sudo lvcreate -y -l 100%FREE -n bv bv
 #echo "Start formatting XFS file system"
 #sudo mkfs.xfs -L blockvolume /dev/bv/bv
-#echo "LABEL=blockvolume /mnt/bv/ xfs defaults,noatime 0 0" | sudo tee -a /etc/fstab
+#echo "LABEL=blockvolume /mnt/bv/ xfs defaults,_netdev,noatime 0 0" | sudo tee -a /etc/fstab
 #sudo systemctl daemon-reload
 #sudo mkdir -p /mnt/bv
 #echo "Start mounting file system"
 #sudo mount /mnt/bv
 #echo "Start configuring secondary NIC"
-#echo "Wait 600 seconds before issueing oci-network-config"
-#sleep 600
-#echo "Start issueing oci-network-config"
 #sudo oci-network-config configure
 #echo "/mnt/bv 10.0.2.0/24(rw,sync,no_root_squash)" | sudo tee -a /etc/exports
 #sudo sed -i 's/# threads=8/threads=64/g' /etc/nfs.conf
