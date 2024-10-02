@@ -47,7 +47,7 @@ resource "oci_core_vnic_attachment" "nfs-srv" {
   create_vnic_details {
     subnet_id               = var.exist_vcn ? var.nfs_ocid : oci_core_subnet.nfs[0].id
     assign_public_ip        = "false"
-    display_name            = var.inst_params_nfs.display_name
+    display_name            = var.inst_params_nfs.secondary_vnis_display_name
     hostname_label          = var.inst_params_nfs.display_name
   }
   instance_id               = element(oci_core_instance.nfs-srv.*.id, count.index)
