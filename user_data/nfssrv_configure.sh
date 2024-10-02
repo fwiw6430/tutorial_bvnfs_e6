@@ -29,6 +29,9 @@ sudo mkdir -p /mnt/bv
 echo "Start mounting file system"
 sudo mount /mnt/bv
 echo "Start configuring secondary NIC"
+echo "Wait 600 seconds before issueing oci-network-config"
+sleep 600
+echo "Start issueing oci-network-config"
 sudo oci-network-config configure
 echo "/mnt/bv 10.0.2.0/24(rw,sync,no_root_squash)" | sudo tee -a /etc/exports
 sudo sed -i 's/# threads=8/threads=64/g' /etc/nfs.conf
