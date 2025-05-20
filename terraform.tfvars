@@ -14,11 +14,10 @@ inst_params_nfs               = {
   image_name                  = "Oracle-Linux-8.10-2025.04.16-0"
   boot_vol_size               = 50
   cloud_config                = "cloud-init_nfs.cfg"
-#  secondary_vnis_display_name = "nfs-srv2"
 }
 
 bv_params                     = {
-  vol_count                   = 15
+  vol_count                   = 30
   vpus_per_gb                 = 10
 }
 
