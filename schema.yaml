@@ -21,8 +21,7 @@ variableGroups:
       - ${ssh_key}
       - ${exist_vcn}
       - ${vcn_ocid}
-#      - ${storage_ocid}
-      - ${nfs_ocid}
+      - ${private_ocid}
   - title: "Block volume options"
     variables:
       - ${bv_total_size}
@@ -70,12 +69,7 @@ variables:
     description: "Pre-exsisting VCN OCID"
     visible: ${exist_vcn}
     required: true 
-#  storage_ocid:
-#    title: "Storage subnet OCID"
-#    description: "Pre-exsisting subnet OCID to connect NFS server with block volume"
-#    visible: ${exist_vcn}
-#    required: true 
-  nfs_ocid:
+  private_ocid:
     title: "NFS subnet OCID"
     description: "Pre-exsisting subnet OCID to connect NFS server with NFS clients"
     visible: ${exist_vcn}

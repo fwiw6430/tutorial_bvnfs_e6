@@ -42,8 +42,8 @@ variable "vcn_ocid" {
 #  type                 = string
 #  default              = ""
 #}
-variable "nfs_ocid" { 
-  description          = "Pre-exsisting NFS subnet OCID" 
+variable "private_ocid" { 
+  description          = "Pre-exsisting private subnet OCID" 
   type                 = string
   default              = ""
 }

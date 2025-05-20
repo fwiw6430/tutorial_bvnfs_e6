@@ -21,7 +21,7 @@ resource "oci_core_instance" "nfs-srv" {
   availability_domain       = var.ad
   shape                     = var.inst_params_nfs.shape
   create_vnic_details {
-    subnet_id               = var.exist_vcn ? var.nfs_ocid : oci_core_subnet.nfs[0].id
+    subnet_id               = var.exist_vcn ? var.private_ocid : oci_core_subnet.private[0].id
     assign_public_ip        = false
   }
   source_details {
@@ -41,18 +41,6 @@ resource "oci_core_instance" "nfs-srv" {
     }
   }   
 }
-
-#resource "oci_core_vnic_attachment" "nfs-srv" {
-#  count                     = 1
-#  create_vnic_details {
-#    subnet_id               = var.exist_vcn ? var.nfs_ocid : oci_core_subnet.nfs[0].id
-#    assign_public_ip        = "false"
-#    display_name            = var.inst_params_nfs.secondary_vnis_display_name
-#    hostname_label          = var.inst_params_nfs.display_name
-#  }
-#  instance_id               = element(oci_core_instance.nfs-srv.*.id, count.index)
-#  nic_index                 = 1
-#}
 
 resource "null_resource" "nfs-srv" {
   depends_on                = [oci_core_instance.nfs-srv]
@@ -85,7 +73,7 @@ resource "oci_resourcemanager_private_endpoint" "rms_private_endpoint" {
   compartment_id            = var.compartment_ocid
   display_name              = var.rm_pend_display_name
   vcn_id                    = var.exist_vcn ? var.vcn_ocid : oci_core_virtual_network.vcn[0].id
-  subnet_id                 = var.exist_vcn ? var.nfs_ocid : oci_core_subnet.nfs[0].id
+  subnet_id                 = var.exist_vcn ? var.private_ocid : oci_core_subnet.private[0].id
 }
 
 data "oci_resourcemanager_private_endpoint_reachable_ip" "rmpe_nfs_ip" {

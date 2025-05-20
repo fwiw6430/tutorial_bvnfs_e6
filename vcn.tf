@@ -31,29 +31,17 @@ resource "oci_core_service_gateway" "sgw" {
   }
 }
 
-resource "oci_core_subnet" "nfs" {
+resource "oci_core_subnet" "private" {
   count                      = var.exist_vcn ? 0 : 1
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn[0].id
-  display_name               = "nfs"
+  display_name               = "private"
   cidr_block                 = "10.0.2.0/24"
-  dns_label                  = "nfs"
+  dns_label                  = "private"
   prohibit_public_ip_on_vnic = true
   security_list_ids          = [oci_core_security_list.private[0].id]
   route_table_id             = oci_core_route_table.private[0].id
 }
-
-#resource "oci_core_subnet" "storage" {
-#  count                      = var.exist_vcn ? 0 : 1
-#  compartment_id             = var.compartment_ocid
-#  vcn_id                     = oci_core_virtual_network.vcn[0].id
-#  display_name               = "storage"
-#  cidr_block                 = "10.0.3.0/24"
-#  dns_label                  = "storage"
-#  prohibit_public_ip_on_vnic = true
-#  security_list_ids          = [oci_core_security_list.private[0].id]
-#  route_table_id             = oci_core_route_table.private[0].id
-#}
 
 resource "oci_core_security_list" "private" {
   count                      = var.exist_vcn ? 0 : 1

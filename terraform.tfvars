@@ -9,7 +9,7 @@
 user_name                     = "opc"
 
 inst_params_nfs               = {
-  display_name                = "nfs-srv-e6"
+  display_name                = "nfs-srv"
   shape                       = "BM.Standard.E6.256"
   image_name                  = "Oracle-Linux-8.10-2025.04.16-0"
   boot_vol_size               = 50
