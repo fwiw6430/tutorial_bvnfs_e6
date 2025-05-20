@@ -6,8 +6,8 @@ resource "tls_private_key" "ssh" {
 data "oci_core_images" "nfs-srv" {
   compartment_id            = var.compartment_ocid
   shape                     = var.inst_params_nfs.shape
-  sort_by                   = "TIMECREATED"
-  sort_order                = "DESC"
+#  sort_by                   = "TIMECREATED"
+#  sort_order                = "DESC"
   filter {
     name                    = "display_name"
     values                  = [var.inst_params_nfs.image_name]
@@ -42,17 +42,17 @@ resource "oci_core_instance" "nfs-srv" {
   }   
 }
 
-resource "oci_core_vnic_attachment" "nfs-srv" {
-  count                     = 1
-  create_vnic_details {
-    subnet_id               = var.exist_vcn ? var.nfs_ocid : oci_core_subnet.nfs[0].id
-    assign_public_ip        = "false"
-    display_name            = var.inst_params_nfs.secondary_vnis_display_name
-    hostname_label          = var.inst_params_nfs.display_name
-  }
-  instance_id               = element(oci_core_instance.nfs-srv.*.id, count.index)
-  nic_index                 = 1
-}
+#resource "oci_core_vnic_attachment" "nfs-srv" {
+#  count                     = 1
+#  create_vnic_details {
+#    subnet_id               = var.exist_vcn ? var.nfs_ocid : oci_core_subnet.nfs[0].id
+#    assign_public_ip        = "false"
+#    display_name            = var.inst_params_nfs.secondary_vnis_display_name
+#    hostname_label          = var.inst_params_nfs.display_name
+#  }
+#  instance_id               = element(oci_core_instance.nfs-srv.*.id, count.index)
+#  nic_index                 = 1
+#}
 
 resource "null_resource" "nfs-srv" {
   depends_on                = [oci_core_instance.nfs-srv]

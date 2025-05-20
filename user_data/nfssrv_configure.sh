@@ -34,3 +34,7 @@ echo "/mnt/bv (rw,sync,no_root_squash)" | sudo tee -a /etc/exports
 sudo sed -i 's/# threads=8/threads=64/g' /etc/nfs.conf
 echo "Start NFS server"
 sudo systemctl enable --now nfs-server rpcbind
+echo "Start changing kernel to RHCK"
+vmlinuz=`sudo grubby --info=ALL | grep ^kernel= | grep -v -e uek -e rescue | awk -F\" '{print $2}'`
+sudo grubby --set-default $vmlinuz
+sudo sed -i 's/kernel-uek/kernel/g' /etc/sysconfig/kernel

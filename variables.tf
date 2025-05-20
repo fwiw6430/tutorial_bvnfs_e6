@@ -37,11 +37,11 @@ variable "vcn_ocid" {
   type                 = string
   default              = ""
 }
-variable "storage_ocid" { 
-  description          = "Pre-exsisting block volume subnet OCID" 
-  type                 = string
-  default              = ""
-}
+#variable "storage_ocid" { 
+#  description          = "Pre-exsisting block volume subnet OCID" 
+#  type                 = string
+#  default              = ""
+#}
 variable "nfs_ocid" { 
   description          = "Pre-exsisting NFS subnet OCID" 
   type                 = string
