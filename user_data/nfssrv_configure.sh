@@ -26,8 +26,8 @@ sudo mkfs.xfs -L blockvolume /dev/bv/bv
 echo "LABEL=blockvolume /mnt/bv/ xfs defaults,_netdev,noatime 0 0" | sudo tee -a /etc/fstab
 sudo systemctl daemon-reload
 sudo mkdir -p /mnt/bv
-#echo "Start mounting file system"
-#sudo mount /mnt/bv
+echo "Start mounting file system"
+sudo mount /mnt/bv
 echo "/mnt/bv *(rw,sync,no_root_squash)" | sudo tee -a /etc/exports
 sudo sed -i 's/# threads=8/threads=256/g' /etc/nfs.conf
 echo "Start NFS server"
