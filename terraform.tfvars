@@ -9,7 +9,7 @@
 user_name                     = "opc"
 
 inst_params_nfs               = {
-  display_name                = "nfs-srv"
+  display_name                = "nfs-srv-60"
   shape                       = "BM.Standard.E6.256"
   image_name                  = "Oracle-Linux-8.10-2025.04.16-0"
   boot_vol_size               = 50
@@ -17,7 +17,7 @@ inst_params_nfs               = {
 }
 
 bv_params                     = {
-  vol_count                   = 30
+  vol_count                   = 60
   vpus_per_gb                 = 10
 }
 
