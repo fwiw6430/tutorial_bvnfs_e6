@@ -29,7 +29,7 @@ sudo systemctl daemon-reload
 sudo mkdir -p /mnt/bv
 #echo "Start mounting file system"
 #sudo mount /mnt/bv
-echo "/mnt/bv (rw,sync,no_root_squash)" | sudo tee -a /etc/exports
+echo "/mnt/bv *(rw,sync,no_root_squash)" | sudo tee -a /etc/exports
 sudo sed -i 's/# threads=8/threads=256/g' /etc/nfs.conf
 echo "Start NFS server"
 sudo systemctl enable --now nfs-server rpcbind
