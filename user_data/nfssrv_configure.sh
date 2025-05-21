@@ -17,13 +17,12 @@ for ((i = 0; i < ${#ar_bv_dev_name[@]}; i++))
   done
 }
 
-echo $bv_dev_list
-#echo "Start creating volume group"
-#sudo vgcreate bv $bv_dev_list
-#echo "Start creating logical volume"
-#sudo lvcreate -y -l 100%FREE --stripes 15 --stripesize "64K" -n bv bv
-#echo "Start formatting XFS file system"
-#sudo mkfs.xfs -L blockvolume /dev/bv/bv
+echo "Start creating volume group"
+sudo vgcreate bv $bv_dev_list
+echo "Start creating logical volume"
+sudo lvcreate -y -l 100%FREE --stripes 32 --stripesize "64K" -n bv bv
+echo "Start formatting XFS file system"
+sudo mkfs.xfs -L blockvolume /dev/bv/bv
 echo "LABEL=blockvolume /mnt/bv/ xfs defaults,_netdev,noatime 0 0" | sudo tee -a /etc/fstab
 sudo systemctl daemon-reload
 sudo mkdir -p /mnt/bv

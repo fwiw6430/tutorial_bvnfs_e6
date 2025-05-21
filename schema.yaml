@@ -1,12 +1,12 @@
 ---
 title: "Block volume NFS server Terraform scripts"
-description: "Terraform scripts deploying block volume NFS server on OCI ver. 1.0"
+description: "Terraform scripts deploying block volume NFS server with BM.Standard.E6.256 on OCI ver. 1.0"
 schemaVersion: 1.0.0
-version: "2024093001"
-informationalText: "Terraform scripts deploying block volume NFS server on OCI ver. 1.0"
+version: "2025052101"
+informationalText: "Terraform scripts deploying block volume NFS server with BM.Standard.E6.256 on OCI ver. 1.0"
 
 # Code history
-# 1.0: Sep 30th 2024: New release
+# 1.0: May 21th 2025: New release
 
 #source:
 #  type: marketplace
@@ -77,7 +77,7 @@ variables:
   bv_total_size:
     type: integer
     title: "Block volume total size"
-    description: "Block volume total size in GB (Minimum size = 15,000GB"
+    description: "Block volume total size in GB (Minimum size = 32,000GB"
     required: true
-    minimum: 15000
-    default: 15000
+    minimum: 32000
+    default: 32000
