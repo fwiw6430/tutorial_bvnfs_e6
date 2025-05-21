@@ -6,8 +6,6 @@ resource "tls_private_key" "ssh" {
 data "oci_core_images" "nfs-srv" {
   compartment_id            = var.compartment_ocid
   shape                     = var.inst_params_nfs.shape
-#  sort_by                   = "TIMECREATED"
-#  sort_order                = "DESC"
   filter {
     name                    = "display_name"
     values                  = [var.inst_params_nfs.image_name]

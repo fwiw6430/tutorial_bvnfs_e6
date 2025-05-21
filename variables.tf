@@ -37,11 +37,6 @@ variable "vcn_ocid" {
   type                 = string
   default              = ""
 }
-#variable "storage_ocid" { 
-#  description          = "Pre-exsisting block volume subnet OCID" 
-#  type                 = string
-#  default              = ""
-#}
 variable "private_ocid" { 
   description          = "Pre-exsisting private subnet OCID" 
   type                 = string
