@@ -1,6 +1,8 @@
 #!/bin/bash
-declare -a ar_bv_dev_name=("/dev/sdb" "/dev/sdc" "/dev/sdd" "/dev/sde" "/dev/sdf" "/dev/sdg" "/dev/sdh" "/dev/sdi" "/dev/sdj" "/dev/sdk" "/dev/sdl" "/dev/sdm" "/dev/sdn" "/dev/sdo" "/dev/sdp")
+declare -a ar_bv_dev_name=("/dev/sdaa" "/dev/sdab" "/dev/sdac" "/dev/sdad" "/dev/sdae" "/dev/sdaf" "/dev/sdag" "/dev/sdb" "/dev/sdc" "/dev/sdd" "/dev/sde" "/dev/sdf" "/dev/sdg" "/dev/sdh" "/dev/sdi" "/dev/sdj" "/dev/sdk" "/dev/sdl" "/dev/sdm" "/dev/sdn" "/dev/sdo" "/dev/sdp" "/dev/sdq" "/dev/sdr" "/dev/sds" "/dev/sdt" "/dev/sdu" "/dev/sdv" "/dev/sdw" "/dev/sdx" "/dev/sdy" "/dev/sdz")
 bv_dev_list=""
+
+# Check all block volumes are attached
 for ((i = 0; i < ${#ar_bv_dev_name[@]}; i++))
 {
   while :
@@ -17,6 +19,7 @@ for ((i = 0; i < ${#ar_bv_dev_name[@]}; i++))
   done
 }
 
+# Create file system on block volume
 echo "Start creating volume group"
 sudo vgcreate bv $bv_dev_list
 echo "Start creating logical volume"
@@ -28,10 +31,14 @@ sudo systemctl daemon-reload
 sudo mkdir -p /mnt/bv
 echo "Start mounting file system"
 sudo mount /mnt/bv
+
+# Configure NFS server
 echo "/mnt/bv *(rw,sync,no_root_squash)" | sudo tee -a /etc/exports
 sudo sed -i 's/# threads=8/threads=256/g' /etc/nfs.conf
 echo "Start NFS server"
 sudo systemctl enable --now nfs-server rpcbind
+
+# Change Linux kernel from UEK to RHCK
 echo "Start changing kernel to RHCK"
 vmlinuz=`sudo grubby --info=ALL | grep ^kernel= | grep -v -e uek -e rescue | awk -F\" '{print $2}'`
 sudo grubby --set-default $vmlinuz
