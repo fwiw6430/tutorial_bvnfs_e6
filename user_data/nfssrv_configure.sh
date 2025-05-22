@@ -26,16 +26,15 @@ echo "Start creating logical volume"
 sudo lvcreate -y -l 100%FREE --stripes 32 --stripesize "64K" -n bv bv
 echo "Start formatting XFS file system"
 sudo mkfs.xfs -L blockvolume /dev/bv/bv
-echo "LABEL=blockvolume /mnt/bv/ xfs defaults,_netdev,noatime 0 0" | sudo tee -a /etc/fstab
-sudo systemctl daemon-reload
-sudo mkdir -p /mnt/bv
 echo "Start mounting file system"
-sudo mount /mnt/bv
+echo "LABEL=blockvolume /mnt/bv/ xfs defaults,_netdev,noatime 0 0" | sudo tee -a /etc/fstab
+sudo mkdir -p /mnt/bv
+sudo systemctl daemon-reload
 
 # Configure NFS server
+echo "Start NFS server"
 echo "/mnt/bv *(rw,sync,no_root_squash)" | sudo tee -a /etc/exports
 sudo sed -i 's/# threads=8/threads=256/g' /etc/nfs.conf
-echo "Start NFS server"
 sudo systemctl enable --now nfs-server rpcbind
 
 # Change Linux kernel from UEK to RHCK
